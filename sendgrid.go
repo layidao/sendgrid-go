@@ -102,6 +102,11 @@ func API(request rest.Request) (*rest.Response, error) {
 	return MakeRequest(request)
 }
 
+func APIWithTimeout(request rest.Request, timeout time.Duration) (*rest.Response, error) {
+	client := rest.Client{HTTPClient:&http.Client{Timeout:timeout}}
+	return client.Send(request)
+}
+
 // MakeRequest attempts a Twilio SendGrid request synchronously.
 func MakeRequest(request rest.Request) (*rest.Response, error) {
 	return DefaultClient.Send(request)
